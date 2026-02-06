@@ -22,13 +22,13 @@
     <div class="new__container">
       <CustomerInfoCard
         title="Customer information"
-        :labels="customerLabels"
-        :values="customerValues"
+        :labels="customerStore.customerLabels"
+        :values="customerStore.customerValues"
       />
       <CustomerInfoCard
-        title="Customer information"
-        :labels="masterLabels"
-        :values="masterValues"
+        title="Master contact detail"
+        :labels="masterStore.masterLabels"
+        :values="masterStore.masterValues"
       />
     </div>
 
@@ -48,7 +48,7 @@
     </div>
 
     <DataTable
-      :value="products"
+      :value="recipesStore.recipes"
       paginator
       :rows="5"
       :rowsPerPageOptions="[5, 10, 20]"
@@ -71,51 +71,38 @@ import Button from 'primevue/button'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import CustomerInfoCard from '@/components/CustomerInfoCard.vue'
-import { ref, onMounted } from 'vue'
-import { getCustomersInfo } from '@/services/getCustomersInfo'
-import { getMasterInfo } from '@/services/getMasterInfo'
+import { ref, onMounted, watch } from 'vue'
 import { getRecipes, type TableRecipe } from '@/services/getTableInfo'
+import { useCustomerStore } from '@/stores/customer'
+import { useMasterStore } from '@/stores/master'
+import { useRecipesStore } from '@/stores/table'
+import { useAuthStore } from '@/stores/auth'
+const recipesStore = useRecipesStore()
+const customerStore = useCustomerStore()
+const masterStore = useMasterStore()
+const authStore = useAuthStore()
 
-const customerValuesNew = ref<string[]>([])
-const customerValues = ref<string[]>([])
-const masterValues = ref<string[]>([])
-const products = ref<TableRecipe[]>([])
-
-const customerLabels = ref([
-  'Name',
-  'Address',
-  'Board line number',
-  'Phone',
-  'City',
-  'State',
-  'Website',
-])
-
-const masterLabels = ref([
-  'Lead ID',
-  'Company name',
-  'Contact name',
-  'Position',
-  'Phone',
-  'Additional phone',
-  'Email',
-  'City',
-])
-
-onMounted(async () => {
+async function loadData() {
   try {
-    const userData = await getCustomersInfo()
-    customerValues.value = userData.slice(1, customerLabels.value.length + 1)
-    customerValuesNew.value = userData
-    const userId = Number(userData[0])
-    const productData = await getMasterInfo(userId)
-    masterValues.value = productData
-    const recipesData = await getRecipes()
-    products.value = recipesData
+    const userId = authStore.user?.id || 1
+    await customerStore.fetchCustomerData(userId)
+    await masterStore.fetchMasterData(userId)
+    await recipesStore.fetchRecipes()
   } catch (err) {
     console.error('Error loading customer data:', err)
   }
+}
+
+onMounted(() => {
+  loadData()
 })
+
+watch(
+  () => authStore.user,
+  () => {
+    loadData()
+  },
+)
 </script>
 
 <style scoped>

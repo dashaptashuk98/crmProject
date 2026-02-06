@@ -22,9 +22,9 @@
     <div class="new__container">
       <div class="con">
         <CustomerInfoCard
-          title="Customer information"
-          :labels="customerLabels"
-          :values="customerData"
+          title="Certificate info"
+          :labels="customerStore.customerLabels"
+          :values="customerStore.customerValues"
         />
       </div>
 
@@ -51,40 +51,30 @@
           </div>
           <div class="mess">
             <p class="comment">We need to prepare all required certification documentation.</p>
-            <p class="name">Dasha Krutay</p>
+            <p class="name">{{ authStore.user?.firstName }}</p>
           </div>
         </div>
         <div class="accard">
           <div class="card">
             <Accordion :value="['0']" multiple>
               <AccordionPanel value="0">
-                <AccordionHeader class="header__accard"> Header I </AccordionHeader>
+                <AccordionHeader class="header__accard"> Document name </AccordionHeader>
                 <AccordionContent>
                   <p class="m-0 bgColor">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.
+                    {{ (authStore.user?.firstName || '') + ' ' + (authStore.user?.lastName || '') }}
                   </p>
                 </AccordionContent>
               </AccordionPanel>
               <AccordionPanel value="1">
-                <AccordionHeader class="header__accard">Header II</AccordionHeader>
+                <AccordionHeader class="header__accard">Attachments and notes</AccordionHeader>
                 <AccordionContent>
                   <p class="m-0 bgColor">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                    veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                    voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                    Consectetur, adipisci velit, sed quia non numquam eius modi.
+                    {{ authStore.user?.email }}
                   </p>
                 </AccordionContent>
               </AccordionPanel>
               <AccordionPanel value="2">
-                <AccordionHeader class="header__accard">Header III</AccordionHeader>
+                <AccordionHeader class="header__accard">Discription</AccordionHeader>
                 <AccordionContent>
                   <p class="m-0 bgColor">
                     At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
@@ -111,29 +101,32 @@ import Accordion from 'primevue/accordion'
 import AccordionPanel from 'primevue/accordionpanel'
 import AccordionHeader from 'primevue/accordionheader'
 import AccordionContent from 'primevue/accordioncontent'
+import { onMounted, watch } from 'vue'
+import { useCustomerStore } from '@/stores/customer'
+import { useAuthStore } from '@/stores/auth'
 
-import { onMounted, ref } from 'vue'
-import { getCustomersInfo } from '@/services/getCustomersInfo'
-import { getMasterInfo } from '@/services/getMasterInfo'
+const customerStore = useCustomerStore()
+const authStore = useAuthStore()
 
-const customerLabels = ref([
-  'Number',
-  'External number',
-  'Type',
-  'Date',
-  'Status',
-  'Valid to',
-  'Account',
-  'Contact',
-])
-const customerData = ref<string[]>([])
-onMounted(async () => {
-  const userData = await getCustomersInfo()
-  const userId = Number(userData[0])
+async function loadData() {
+  try {
+    const userId = authStore.user?.id || 1
+    await customerStore.fetchCustomerData(userId)
+  } catch (err) {
+    console.error('Error loading customer data:', err)
+  }
+}
 
-  const productData = await getMasterInfo(userId)
-  customerData.value = productData
+onMounted(() => {
+  loadData()
 })
+
+watch(
+  () => authStore.user,
+  () => {
+    loadData()
+  },
+)
 </script>
 
 <style scoped>
@@ -294,8 +287,18 @@ onMounted(async () => {
   justify-content: center !important;
 }
 
+.accard :deep(.p-accordionheader-toggle-icon .pi) {
+  color: white !important;
+  font-size: 14px !important;
+  transition: none !important;
+  transform: rotate(0deg) !important;
+}
+
 .accard :deep(.p-accordionpanel-active .p-accordionheader-toggle-icon) {
   background-color: #6c4bcc !important;
+}
+
+.accard :deep(.p-accordionpanel-active .p-accordionheader-toggle-icon .pi) {
   transform: rotate(-180deg) !important;
 }
 

@@ -1,9 +1,16 @@
 import { api } from '.'
-
-export const getCustomersInfo = async (): Promise<string[]> => {
+import type { User } from './auth'
+export const getCustomersInfo = async (userId: number): Promise<string[]> => {
   const { data } = await api.get('users')
-  const info = data.users[0]
-  const infoValues = Object.values(info) as string[]
-  console.log(infoValues)
+
+  const user = data.users.find((user: User) => user.id === userId)
+
+  const targetUser = user || data.users[0]
+
+  if (!targetUser) {
+    throw new Error('User data not found')
+  }
+
+  const infoValues = Object.values(targetUser) as string[]
   return infoValues
 }

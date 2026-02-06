@@ -54,8 +54,8 @@ const copyAllInfo = async () => {
     toast.add({
       severity: 'success',
       summary: 'Success',
-      detail: 'Customer information copied to clipboard!',
-      life: 3000, // Toast будет показан 3 секунды
+      detail: 'Information copied to clipboard!',
+      life: 3000,
     })
   } catch (err) {
     console.error('Error copying text:', err)

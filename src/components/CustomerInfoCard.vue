@@ -1,8 +1,8 @@
 <template>
-  <div class="customer-info-container">
-    <div class="customer__header">
-      <h2 class="customer__title">{{ title }}</h2>
-      <button class="copyBtn" @click="copyAllInfo">
+  <div class="info-card">
+    <div class="info-card__header">
+      <h2 class="info-card__title">{{ title }}</h2>
+      <button class="info-card__copy" @click="copyAllInfo">
         <img src="../assets/images/copy.svg" alt="Copy" />
       </button>
     </div>
@@ -10,16 +10,16 @@
     <Listbox
       :options="customerInfo"
       optionLabel="label"
-      class="customer-listbox"
+      class="info-card__list"
       listStyle="max-height: 250px"
     >
       <template #option="slotProps">
-        <div class="customer-info-item">
-          <div class="info-content">
-            <span class="info-label">{{ slotProps.option.label }}</span>
-            <span class="info-value">{{ slotProps.option.value }}</span>
+        <div class="info-card__item">
+          <div class="info-card__content">
+            <span class="info-card__label">{{ slotProps.option.label }}</span>
+            <span class="info-card__value">{{ slotProps.option.value }}</span>
           </div>
-          <Divider class="item-divider" />
+          <Divider class="info-card__divider" />
         </div>
       </template>
     </Listbox>
@@ -70,18 +70,18 @@ const copyAllInfo = async () => {
 </script>
 
 <style scoped>
-.customer-info-container {
-  background: white;
-  border-radius: 12px;
+.info-card {
+  background: var(--color-background);
+  border-radius: var(--border-radius-extra);
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-light);
   max-width: 815px;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.customer__header {
+.info-card__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -89,17 +89,17 @@ const copyAllInfo = async () => {
   flex-shrink: 0;
 }
 
-.customer__title {
+.info-card__title {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 700;
   font-size: 22px;
   line-height: 26px;
   margin: 0 0 0px 12px;
-  color: #353535;
+  color: var(--color-text-primary);
 }
 
-.customer-listbox {
+.info-card__list {
   border: none;
   flex: 1;
   min-height: 0;
@@ -107,20 +107,20 @@ const copyAllInfo = async () => {
   flex-direction: column;
 }
 
-.customer-listbox :deep(.p-listbox-list-wrapper) {
+.info-card__list :deep(.p-listbox-list-wrapper) {
   height: 100%;
   overflow: auto;
   display: flex;
   flex-direction: column;
 }
 
-.customer-listbox :deep(.p-listbox-list) {
+.info-card__list :deep(.p-listbox-list) {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.customer-listbox :deep(.p-listbox-item) {
+.info-card__list :deep(.p-listbox-item) {
   padding: 0 !important;
   border: none !important;
   display: block;
@@ -130,14 +130,14 @@ const copyAllInfo = async () => {
   transition: background-color 0.2s ease;
 }
 
-.customer-info-item {
+.info-card__item {
   display: flex;
   flex-direction: column;
   width: 100%;
   font-family: 'Karla', sans-serif;
 }
 
-.info-content {
+.info-card__content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -146,67 +146,67 @@ const copyAllInfo = async () => {
   flex-shrink: 0;
 }
 
-.item-divider {
+.info-card__divider {
   margin: 0 !important;
   padding: 0 !important;
   flex-shrink: 0;
 }
 
-.customer-listbox :deep(.p-divider) {
+.info-card__list :deep(.p-divider) {
   margin: 0;
-  border-color: #eaeaea;
+  border-color: var(--color-divider);
 }
 
-.customer-listbox :deep(.p-divider.p-divider-horizontal) {
+.info-card__list :deep(.p-divider.p-divider-horizontal) {
   margin: 0;
-  border-color: #eaeaea;
+  border-color: var(--color-divider);
 }
 
-.customer-listbox :deep(.p-divider.p-divider-horizontal:before) {
-  border-top: 1px solid #eaeaea;
+.info-card__list :deep(.p-divider.p-divider-horizontal:before) {
+  border-top: 1px solid var(--color-divider);
 }
 
-.customer-listbox :deep(.p-listbox-item:last-child .item-divider) {
+.info-card__list :deep(.p-listbox-item:last-child .info-card__divider) {
   display: none;
 }
 
-.customer-listbox :deep(.p-listbox-list-wrapper::-webkit-scrollbar) {
+.info-card__list :deep(.p-listbox-list-wrapper::-webkit-scrollbar) {
   width: 6px;
 }
 
-.customer-listbox :deep(.p-listbox-list-wrapper::-webkit-scrollbar-track) {
+.info-card__list :deep(.p-listbox-list-wrapper::-webkit-scrollbar-track) {
   background: #f0f0f0;
   border-radius: 10px;
 }
 
-.customer-listbox :deep(.p-listbox-list-wrapper::-webkit-scrollbar-thumb) {
-  background: rgba(167, 167, 251, 1) !important;
+.info-card__list :deep(.p-listbox-list-wrapper::-webkit-scrollbar-thumb) {
+  background: var(--color-primary-light) !important;
   border-radius: 10px;
 }
 
-.customer-listbox :deep(.p-listbox-list-wrapper::-webkit-scrollbar-thumb:hover) {
-  background: rgba(167, 167, 251, 1) !important;
+.info-card__list :deep(.p-listbox-list-wrapper::-webkit-scrollbar-thumb:hover) {
+  background: var(--color-primary-light) !important;
 }
 
-.customer-listbox :deep(*::-webkit-scrollbar) {
+.info-card__list :deep(*::-webkit-scrollbar) {
   width: 6px;
 }
 
-.customer-listbox :deep(*::-webkit-scrollbar-track) {
+.info-card__list :deep(*::-webkit-scrollbar-track) {
   background: #f0f0f0;
   border-radius: 10px;
 }
 
-.customer-listbox :deep(*::-webkit-scrollbar-thumb) {
-  background: rgba(167, 167, 251, 1) !important;
+.info-card__list :deep(*::-webkit-scrollbar-thumb) {
+  background: var(--color-primary-light) !important;
   border-radius: 10px;
 }
 
-.customer-listbox :deep(*::-webkit-scrollbar-thumb:hover) {
-  background: rgba(167, 167, 251, 1) !important;
+.info-card__list :deep(*::-webkit-scrollbar-thumb:hover) {
+  background: var(--color-primary-light) !important;
 }
 
-.info-label {
+.info-card__label {
   font-weight: 600;
   color: #4b5563;
   min-width: 200px;
@@ -215,27 +215,27 @@ const copyAllInfo = async () => {
   font-family: 'Karla', sans-serif;
 }
 
-.copyBtn {
-  background-color: white;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+.info-card__copy {
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-medium);
   width: 24px;
   height: 24px;
   border: none;
   padding: 2px;
-  border-radius: 2px;
+  border-radius: var(--border-radius-small);
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-.copyBtn:hover {
+.info-card__copy:hover {
   background-color: #f5f5f5;
 }
 
-.copyBtn:active {
+.info-card__copy:active {
   background-color: #e0e0e0;
 }
 
-.info-value {
+.info-card__value {
   color: #111827;
   font-weight: 400;
   flex: 1;
@@ -245,44 +245,44 @@ const copyAllInfo = async () => {
   font-family: 'Karla', sans-serif;
 }
 
-.info-value a {
-  color: #8f6afe;
+.info-card__value a {
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 500;
 }
 
-.info-value a:hover {
+.info-card__value a:hover {
   text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-  .customer-info-container {
+  .info-card {
     padding: 15px;
     max-width: 100%;
   }
 
-  .customer__header {
+  .info-card__header {
     margin-bottom: 15px;
   }
 
-  .customer__title {
+  .info-card__title {
     font-size: 20px;
   }
 
-  .info-content {
+  .info-card__content {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
 
-  .info-label {
+  .info-card__label {
     min-width: auto;
     padding-right: 0;
     font-size: 14px;
     font-weight: 700;
   }
 
-  .info-value {
+  .info-card__value {
     text-align: left;
     font-size: 14px;
     width: 100%;
@@ -290,16 +290,16 @@ const copyAllInfo = async () => {
 }
 
 @media (max-width: 480px) {
-  .customer-info-container {
+  .info-card {
     padding: 10px;
   }
 
-  .customer__title {
+  .info-card__title {
     font-size: 18px;
   }
 
-  .info-label,
-  .info-value {
+  .info-card__label,
+  .info-card__value {
     font-size: 14px;
   }
 }

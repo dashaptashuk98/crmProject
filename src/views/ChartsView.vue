@@ -1,42 +1,47 @@
 <template>
-  <div class="main-container">
-    <div class="top-section">
-      <div class="title-section">
-        <h1 class="title">Dashboard</h1>
-        <div class="button__container">
+  <div class="charts">
+    <div class="charts__header">
+      <div class="charts__title-wrapper">
+        <h1 class="charts__title">Dashboard</h1>
+        <div class="charts__actions">
           <Button
             variant="text"
             icon="pi pi-angle-down"
             iconPos="right"
             label="Actions"
-            :style="{ color: '#8F6AFE', fontFamily: 'Karla' }"
+            :style="{ color: 'var(--color-primary)', fontFamily: 'Karla' }"
           />
         </div>
       </div>
     </div>
 
-    <div class="dashboard-grid">
-      <div class="chart-left">
-        <Chart type="line" :data="lineChartData" :options="lineChartOptions" class="chart" />
+    <div class="charts__grid">
+      <div class="charts__item charts__item--line">
+        <Chart
+          type="line"
+          :data="lineChartData"
+          :options="lineChartOptions"
+          class="charts__chart"
+        />
       </div>
 
-      <div class="right-container">
-        <div class="chart-right">
-          <Chart type="bar" :data="barChartData" :options="barChartOptions" class="chart" />
+      <div class="charts__sidebar">
+        <div class="charts__item charts__item--bar">
+          <Chart type="bar" :data="barChartData" :options="barChartOptions" class="charts__chart" />
         </div>
 
-        <div class="chart-bottom">
+        <div class="charts__item charts__item--doughnut">
           <Chart
             type="doughnut"
             :data="doughnutChartData"
             :options="doughnutChartOptions"
-            class="chart"
+            class="charts__chart"
           />
         </div>
       </div>
 
-      <div class="cards-container">
-        <div class="cards-grid">
+      <div class="charts__cards">
+        <div class="charts__cards-grid">
           <CardComponent
             v-for="(card, index) in cardsData"
             :key="index"
@@ -261,14 +266,14 @@ const doughnutChartOptions = ref({
 </script>
 
 <style scoped>
-.main-container {
+.charts {
   width: 100%;
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
 }
 
-.top-section {
+.charts__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -276,31 +281,30 @@ const doughnutChartOptions = ref({
   width: 100%;
 }
 
-.title-section {
+.charts__title-wrapper {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
 }
 
-.title {
+.charts__title {
   font-family: 'Sora';
   font-style: normal;
   font-weight: 600;
   font-size: 34px;
   line-height: 43px;
   margin: 0;
-  color: #8f6afe;
+  color: var(--color-primary);
   white-space: nowrap;
 }
 
-.button__container {
+.charts__actions {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.dashboard-grid {
+.charts__grid {
   display: grid;
   grid-template-columns: 3fr 2fr;
   grid-template-rows: 562px auto;
@@ -310,7 +314,7 @@ const doughnutChartOptions = ref({
   margin: 0 auto;
 }
 
-.chart-left {
+.charts__item--line {
   grid-column: 1;
   grid-row: 1;
   height: 562px;
@@ -322,7 +326,7 @@ const doughnutChartOptions = ref({
   overflow: hidden;
 }
 
-.right-container {
+.charts__sidebar {
   grid-column: 2;
   grid-row: 1 / span 2;
   background: white;
@@ -336,187 +340,187 @@ const doughnutChartOptions = ref({
   gap: 20px;
 }
 
-.chart-right {
+.charts__item--bar {
   flex: 1;
   min-height: 373px;
 }
 
-.chart-bottom {
+.charts__item--doughnut {
   flex: 1;
   min-height: 433px;
 }
 
-.cards-container {
+.charts__cards {
   grid-column: 1;
   grid-row: 2;
   display: flex;
   flex-direction: column;
 }
 
-.cards-grid {
+.charts__cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   width: 100%;
 }
 
-.cards-grid > * {
+.charts__cards-grid > * {
   width: 100%;
   min-width: 0;
 }
 
-.chart {
+.charts__chart {
   width: 100% !important;
   height: 448px !important;
 }
 
 @media (max-width: 1024px) {
-  .dashboard-grid {
+  .charts__grid {
     max-width: calc(100vw - 100px);
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto;
     gap: 15px;
   }
 
-  .chart-left {
+  .charts__item--line {
     grid-column: 1;
     grid-row: 1;
     height: 400px;
   }
 
-  .right-container {
+  .charts__sidebar {
     grid-column: 1;
     grid-row: 2;
     height: auto;
     padding: 15px;
   }
 
-  .chart-right {
+  .charts__item--bar {
     min-height: 300px;
     height: 300px;
   }
 
-  .chart-bottom {
+  .charts__item--doughnut {
     min-height: 300px;
     height: 300px;
   }
 
-  .cards-container {
+  .charts__cards {
     grid-column: 1;
     grid-row: 3;
   }
 
-  .cards-grid {
+  .charts__cards-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
 }
 
 @media (max-width: 768px) {
-  .dashboard-grid {
+  .charts__grid {
     max-width: calc(100vw - 60px);
     gap: 12px;
   }
 
-  .chart-left {
+  .charts__item--line {
     height: 300px;
     padding: 15px;
   }
 
-  .right-container {
+  .charts__sidebar {
     padding: 12px;
     gap: 15px;
   }
 
-  .chart-right {
+  .charts__item--bar {
     height: 250px;
     min-height: 250px;
   }
 
-  .chart-bottom {
+  .charts__item--doughnut {
     height: 250px;
     min-height: 250px;
   }
 
-  .cards-grid {
+  .charts__cards-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
 
-  .top-section {
+  .charts__header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
     margin-bottom: 20px;
   }
 
-  .title-section {
+  .charts__title-wrapper {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
   }
 
-  .button__container {
+  .charts__actions {
     width: 100%;
     justify-content: flex-start;
   }
 
-  .title {
+  .charts__title {
     font-size: 30px;
     white-space: normal;
   }
 }
 
 @media (max-width: 480px) {
-  .dashboard-grid {
+  .charts__grid {
     max-width: calc(100vw - 40px);
     gap: 10px;
   }
 
-  .chart-left {
+  .charts__item--line {
     height: 250px;
     padding: 12px;
   }
 
-  .right-container {
+  .charts__sidebar {
     padding: 10px;
     gap: 12px;
   }
 
-  .chart-right,
-  .chart-bottom {
+  .charts__item--bar,
+  .charts__item--doughnut {
     height: 200px;
     min-height: 200px;
   }
 
-  .title {
+  .charts__title {
     font-size: 26px;
   }
 }
 
 @media (max-width: 375px) {
-  .dashboard-grid {
+  .charts__grid {
     max-width: calc(100vw - 30px);
     gap: 8px;
   }
 
-  .chart-left {
+  .charts__item--line {
     height: 220px;
     padding: 10px;
   }
 
-  .right-container {
+  .charts__sidebar {
     padding: 8px;
     gap: 10px;
   }
 
-  .chart-right,
-  .chart-bottom {
+  .charts__item--bar,
+  .charts__item--doughnut {
     height: 180px;
     min-height: 180px;
   }
 
-  .title {
+  .charts__title {
     font-size: 24px;
   }
 }

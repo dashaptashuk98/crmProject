@@ -1,19 +1,18 @@
 <template>
-  <div class="card__item">
-    <div class="card__wrapper">
-      <p class="title">{{ props.title }}</p>
-      <div class="card__number">
-        <p class="card__num">{{ props.cardNum }}</p>
-        <div class="inner__num">
+  <div class="stats-card">
+    <div class="stats-card__content">
+      <p class="stats-card__title">{{ props.title }}</p>
+      <div class="stats-card__value-wrapper">
+        <p class="stats-card__value">{{ props.cardNum }}</p>
+        <div class="stats-card__change" v-if="props.cardInc">
           <img
-            v-if="props.cardInc"
             src="../assets/images/arrow.svg"
             alt="arrow"
-            class="num"
+            class="stats-card__arrow"
             width="12"
             height="15"
           />
-          <span class="num__increase">{{ props.cardInc }}</span>
+          <span class="stats-card__change-value">{{ props.cardInc }}</span>
         </div>
       </div>
     </div>
@@ -31,34 +30,34 @@ const props = defineProps<Props>()
 </script>
 
 <style scoped>
-.card__item {
-  background-color: rgba(255, 255, 255, 1);
+.stats-card {
+  background-color: var(--color-background);
   padding: 37.5px 20px;
-  border-radius: 7px;
+  border-radius: var(--border-radius-medium);
 
   box-sizing: border-box;
   overflow: visible;
 }
 
-.card__wrapper {
+.stats-card__content {
   display: flex;
   flex-direction: column;
   gap: 32px;
   height: 100%;
 }
 
-.title {
+.stats-card__title {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 23px;
   margin: 0;
-  color: #979797;
+  color: var(--color-text-secondary);
   flex-shrink: 0;
 }
 
-.card__number {
+.stats-card__value-wrapper {
   display: flex;
   align-items: center;
   gap: 32px;
@@ -66,19 +65,19 @@ const props = defineProps<Props>()
   flex-grow: 1;
 }
 
-.card__num {
+.stats-card__value {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 700;
   font-size: 40px;
   line-height: 47px;
   margin: 0;
-  color: #353535;
+  color: var(--color-text-primary);
   word-break: break-word;
   text-align: center;
 }
 
-.inner__num {
+.stats-card__change {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,12 +85,12 @@ const props = defineProps<Props>()
   flex-shrink: 0;
 }
 
-.num__increase {
+.stats-card__change-value {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 700;
   font-size: 22px;
   line-height: 26px;
-  color: #45b73b;
+  color: var(--color-success);
 }
 </style>

@@ -1,25 +1,33 @@
 <template>
-  <div class="main-container">
-    <div class="top-section">
-      <div class="title-section">
-        <h1 class="title">Customer information</h1>
-        <p class="description">Customer ID: 455123</p>
+  <div class="customer">
+    <div class="customer__header">
+      <div class="customer__title-wrapper">
+        <h1 class="customer__title">Customer information</h1>
+        <p class="customer__subtitle">Customer ID: 455123</p>
       </div>
-      <div class="button__container">
+      <div class="customer__actions">
         <Button
           label="Send email"
-          :style="{ background: '#8F6AFE', borderColor: '#8F6AFE', fontFamily: 'Karla' }"
+          :style="{
+            background: 'var(--color-primary)',
+            borderColor: 'var(--color-primary)',
+            fontFamily: 'Karla',
+          }"
         />
         <Button
           icon="pi pi-angle-down"
           iconPos="right"
           label="Customize"
-          :style="{ background: '#8F6AFE', borderColor: '#8F6AFE', fontFamily: 'Karla' }"
+          :style="{
+            background: 'var(--color-primary)',
+            borderColor: 'var(--color-primary)',
+            fontFamily: 'Karla',
+          }"
         />
       </div>
     </div>
 
-    <div class="new__container">
+    <div class="customer__info-grid">
       <CustomerInfoCard
         title="Customer information"
         :labels="customerStore.customerLabels"
@@ -32,19 +40,23 @@
       />
     </div>
 
-    <div class="button-wrapper">
+    <div class="customer__add-button">
       <Button
         icon="pi pi-angle-down"
         iconPos="right"
         label="Add"
-        class="addBtn"
-        :style="{ background: '#8F6AFE', borderColor: '#8F6AFE', fontFamily: 'Karla' }"
+        class="customer__add-btn"
+        :style="{
+          background: 'var(--color-primary)',
+          borderColor: 'var(--color-primary)',
+          fontFamily: 'Karla',
+        }"
       />
     </div>
 
-    <div class="wrapp">
-      <img src="../src/assets/images/desc.svg" alt="" class="descImg" />
-      <p class="descNew">Description</p>
+    <div class="customer__description">
+      <img src="../src/assets/images/desc.svg" alt="" class="customer__description-icon" />
+      <p class="customer__description-text">Description</p>
     </div>
 
     <DataTable
@@ -106,13 +118,13 @@ watch(
 </script>
 
 <style scoped>
-.main-container {
+.customer {
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
 }
 
-.top-section {
+.customer__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -121,88 +133,88 @@ watch(
   gap: 1rem;
 }
 
-.title-section {
+.customer__title-wrapper {
   flex: 1;
   min-width: 300px;
 }
 
-.title {
+.customer__title {
   font-family: 'Sora';
   font-style: normal;
   font-weight: 600;
   font-size: 34px;
   line-height: 43px;
   margin: 0 0 8px 0;
-  color: #8f6afe;
+  color: var(--color-primary);
 }
 
-.description {
+.customer__subtitle {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
-  color: #353535;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
-.button__container {
+.customer__actions {
   display: flex;
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
 }
 
-.wrapp {
+.customer__description {
   display: flex;
   gap: 14px;
-  background-color: rgba(143, 106, 254, 1);
+  background-color: var(--color-primary);
   padding: 17px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-large);
   margin-bottom: 20px;
 }
 
-.addBtn {
+.customer__add-btn {
   margin-left: auto;
   align-self: flex-end;
   margin-bottom: 20px;
 }
 
-.button-wrapper {
+.customer__add-button {
   display: flex;
   justify-content: flex-end;
   width: 100%;
   margin-bottom: 20px;
 }
 
-.new__container {
+.customer__info-grid {
   display: flex;
   justify-content: space-between;
   margin-bottom: 55px;
   gap: 20px;
 }
 
-.descNew {
+.customer__description-text {
   font-family: 'Sora';
   font-style: normal;
   font-weight: 600;
   font-size: 30px;
   line-height: 38px;
-  color: #ffffff;
+  color: var(--color-text-inverse);
   margin: 0;
 }
 
 @media (max-width: 940px) {
-  .top-section {
+  .customer__header {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .button__container {
+  .customer__actions {
     justify-content: flex-start;
   }
 
-  .new__container {
+  .customer__info-grid {
     flex-direction: column;
   }
 }

@@ -1,92 +1,110 @@
 <template>
-  <div class="main-container">
-    <div class="top-section">
-      <div class="title-section">
-        <h1 class="title">Certificate: 2023/Cert - 001</h1>
-        <div class="button__container">
+  <div class="draft">
+    <div class="draft__header">
+      <div class="draft__title-wrapper">
+        <h1 class="draft__title">Certificate: 2023/Cert - 001</h1>
+        <div class="draft__actions">
           <Button
             label="Close"
-            :style="{ background: '#8F6AFE', borderColor: '#8F6AFE', fontFamily: 'Karla' }"
+            :style="{
+              background: 'var(--color-primary)',
+              borderColor: 'var(--color-primary)',
+              fontFamily: 'Karla',
+            }"
           />
           <Button
             variant="text"
             icon="pi pi-angle-down"
             iconPos="right"
             label="Operations"
-            :style="{ color: '#8F6AFE', fontFamily: 'Karla' }"
+            :style="{ color: 'var(--color-primary)', fontFamily: 'Karla' }"
           />
         </div>
       </div>
     </div>
 
-    <div class="new__container">
-      <div class="con">
-        <CustomerInfoCard
-          title="Certificate info"
-          :labels="customerStore.customerLabels"
-          :values="customerStore.customerValues"
-        />
+    <div class="draft__content">
+      <div class="draft__left-column">
+        <div class="draft__info">
+          <CustomerInfoCard
+            title="Certificate info"
+            :labels="customerStore.customerLabels"
+            :values="customerStore.customerValues"
+          />
+        </div>
+        <SimpleChat />
       </div>
 
-      <div class="wrapp__spec">
-        <div class="wrapp">
-          <p class="descNew">Description</p>
-          <div class="inner">
-            <span class="step">Next steps <span class="spec">(1)</span></span>
+      <div class="draft__right-column">
+        <div class="draft__details">
+          <div class="draft__description">
+            <p class="draft__description-title">Description</p>
+            <div class="draft__next-steps">
+              <span class="draft__next-steps-title"
+                >Next steps <span class="draft__next-steps-count">(1)</span></span
+              >
 
-            <ul class="list">
-              <li class="items">
-                <img src="../assets/images/telegram.svg" alt="" class="item__img" />
-              </li>
-              <li class="items">
-                <img src="../assets/images/whatsapp.svg" alt="" class="item__img" />
-              </li>
-              <li class="items">
-                <img src="../assets/images/messenger.svg" alt="" class="item__img" />
-              </li>
-            </ul>
+              <ul class="draft__messengers">
+                <li class="draft__messenger-item">
+                  <img src="../assets/images/telegram.svg" alt="" class="draft__messenger-icon" />
+                </li>
+                <li class="draft__messenger-item">
+                  <img src="../assets/images/whatsapp.svg" alt="" class="draft__messenger-icon" />
+                </li>
+                <li class="draft__messenger-item">
+                  <img src="../assets/images/messenger.svg" alt="" class="draft__messenger-icon" />
+                </li>
+              </ul>
+            </div>
+            <div class="draft__arrow-wrapper">
+              <img src="../assets/images/arraowUp.svg" alt="" class="draft__arrow" />
+            </div>
+            <div class="draft__message">
+              <p class="draft__message-text">
+                We need to prepare all required certification documentation.
+              </p>
+              <p class="draft__message-author">{{ authStore.user?.firstName }}</p>
+            </div>
           </div>
-          <div class="ar">
-            <img src="../assets/images/arraowUp.svg" alt="" class="arrowUo" />
-          </div>
-          <div class="mess">
-            <p class="comment">We need to prepare all required certification documentation.</p>
-            <p class="name">{{ authStore.user?.firstName }}</p>
-          </div>
-        </div>
-        <div class="accard">
-          <div class="card">
-            <Accordion :value="['0']" multiple>
-              <AccordionPanel value="0">
-                <AccordionHeader class="header__accard"> Document name </AccordionHeader>
-                <AccordionContent>
-                  <p class="m-0 bgColor">
-                    {{ (authStore.user?.firstName || '') + ' ' + (authStore.user?.lastName || '') }}
-                  </p>
-                </AccordionContent>
-              </AccordionPanel>
-              <AccordionPanel value="1">
-                <AccordionHeader class="header__accard">Attachments and notes</AccordionHeader>
-                <AccordionContent>
-                  <p class="m-0 bgColor">
-                    {{ authStore.user?.email }}
-                  </p>
-                </AccordionContent>
-              </AccordionPanel>
-              <AccordionPanel value="2">
-                <AccordionHeader class="header__accard">Discription</AccordionHeader>
-                <AccordionContent>
-                  <p class="m-0 bgColor">
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                    praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
-                    excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-                    officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem
-                    rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis
-                    est eligendi optio cumque nihil impedit quo minus.
-                  </p>
-                </AccordionContent>
-              </AccordionPanel>
-            </Accordion>
+
+          <div class="draft__accordion">
+            <div class="draft__accordion-card">
+              <Accordion :value="['0']" multiple>
+                <AccordionPanel value="0">
+                  <AccordionHeader class="draft__accordion-header"> Document name </AccordionHeader>
+                  <AccordionContent>
+                    <p class="draft__accordion-content">
+                      {{
+                        (authStore.user?.firstName || '') + ' ' + (authStore.user?.lastName || '')
+                      }}
+                    </p>
+                  </AccordionContent>
+                </AccordionPanel>
+                <AccordionPanel value="1">
+                  <AccordionHeader class="draft__accordion-header"
+                    >Attachments and notes</AccordionHeader
+                  >
+                  <AccordionContent>
+                    <p class="draft__accordion-content">
+                      {{ authStore.user?.email }}
+                    </p>
+                  </AccordionContent>
+                </AccordionPanel>
+                <AccordionPanel value="2">
+                  <AccordionHeader class="draft__accordion-header">Discription</AccordionHeader>
+                  <AccordionContent>
+                    <p class="draft__accordion-content">
+                      At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+                      praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+                      excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
+                      officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum
+                      quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum
+                      soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                    </p>
+                  </AccordionContent>
+                </AccordionPanel>
+              </Accordion>
+            </div>
           </div>
         </div>
       </div>
@@ -97,6 +115,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
 import CustomerInfoCard from '@/components/CustomerInfoCard.vue'
+import SimpleChat from '@/components/SimpleChat.vue'
 import Accordion from 'primevue/accordion'
 import AccordionPanel from 'primevue/accordionpanel'
 import AccordionHeader from 'primevue/accordionheader'
@@ -130,13 +149,13 @@ watch(
 </script>
 
 <style scoped>
-.main-container {
+.draft {
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
 }
 
-.top-section {
+.draft__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -145,22 +164,52 @@ watch(
   gap: 1rem;
 }
 
-.title-section {
+.draft__title-wrapper {
   flex: 1;
-  min-width: 300px;
 }
 
-.title {
+.draft__title {
   font-family: 'Sora';
   font-style: normal;
   font-weight: 600;
   font-size: 34px;
   line-height: 43px;
   margin: 0 0 20px 0;
-  color: #8f6afe;
+  color: var(--color-primary);
+  white-space: normal;
+  word-break: break-word;
 }
 
-.list {
+.draft__content {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 55px;
+}
+
+.draft__left-column {
+  flex: 0 0 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.draft__right-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.draft__info {
+  display: flex;
+  height: 370px;
+}
+
+.draft__details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.draft__messengers {
   list-style-type: none;
   display: flex;
   gap: 10px;
@@ -168,7 +217,7 @@ watch(
   margin: 0;
 }
 
-.step {
+.draft__next-steps-title {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 700;
@@ -176,60 +225,55 @@ watch(
   line-height: 23px;
 }
 
-.inner {
+.draft__next-steps {
   display: flex;
   gap: 10px;
   align-items: center;
 }
 
-.accard {
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: 10px;
+.draft__accordion {
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-large);
 }
 
-.spec {
-  color: rgba(143, 106, 254, 1);
+.draft__next-steps-count {
+  color: var(--color-primary);
 }
 
-.button__container {
+.draft__actions {
   display: flex;
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
 }
 
-.ar {
+.draft__arrow-wrapper {
   position: relative;
-  border-bottom: 1px solid rgba(167, 167, 251, 1);
+  border-bottom: 1px solid var(--color-primary-light);
   margin-bottom: 12px;
 }
 
-.con {
-  display: flex;
-  height: 370px;
-}
-
-.arrowUo {
+.draft__arrow {
   position: absolute;
-  background-color: white;
+  background-color: var(--color-background);
   top: -7px;
   left: 40px;
 }
 
-.wrapp {
+.draft__description {
   display: flex;
   gap: 14px;
   flex-direction: column;
   padding: 30px;
   margin-bottom: 20px;
   flex: 1;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: var(--color-background);
 }
 
-.bgColor {
-  background-color: rgba(245, 244, 248, 1);
+.draft__accordion-content {
+  background-color: var(--color-background-secondary);
   padding: 30px 30px 26px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-large);
 
   font-family: 'Karla';
   font-style: normal;
@@ -237,168 +281,86 @@ watch(
   font-size: 20px;
   line-height: 23px;
 
-  color: #353535;
+  color: var(--color-text-primary);
 }
 
-.addBtn {
-  margin-left: auto;
-  align-self: flex-end;
-  margin-bottom: 20px;
-}
-
-.button-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.comment {
+.draft__message-text {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 23px;
   margin: 0;
-  color: #353535;
+  color: var(--color-text-primary);
 }
 
-.accard :deep(.p-accordionheader-link) {
+.draft__accordion :deep(.p-accordionheader-link) {
   display: flex !important;
   align-items: center !important;
   padding: 1rem !important;
 }
 
-.accard :deep(.p-accordionheader) {
+.draft__accordion :deep(.p-accordionheader) {
   justify-content: start;
 }
 
-.accard :deep(.p-accordionheader-toggle-icon) {
+.draft__accordion :deep(.p-accordionheader-toggle-icon) {
   order: -1 !important;
   margin-right: 12px !important;
-  background-color: #8f6afe !important;
-  color: white !important;
+  background-color: var(--color-primary) !important;
+  color: var(--color-text-inverse) !important;
   padding: 6px 4px 7px;
   width: 20px !important;
   height: 20px !important;
-  border-radius: 4px !important;
+  border-radius: var(--border-radius-small) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 
-.accard :deep(.p-accordionheader-toggle-icon .pi) {
-  color: white !important;
+.draft__accordion :deep(.p-accordionheader-toggle-icon .pi) {
+  color: var(--color-text-inverse) !important;
   font-size: 14px !important;
   transition: none !important;
   transform: rotate(0deg) !important;
 }
 
-.accard :deep(.p-accordionpanel-active .p-accordionheader-toggle-icon) {
-  background-color: #6c4bcc !important;
+.draft__accordion :deep(.p-accordionpanel-active .p-accordionheader-toggle-icon) {
+  background-color: var(--color-primary-dark) !important;
 }
 
-.accard :deep(.p-accordionpanel-active .p-accordionheader-toggle-icon .pi) {
+.draft__accordion :deep(.p-accordionpanel-active .p-accordionheader-toggle-icon .pi) {
   transform: rotate(-180deg) !important;
 }
 
-.accard :deep(.p-accordionheader-toggle-icon) {
+.draft__accordion :deep(.p-accordionheader-toggle-icon) {
   transition:
     transform 0.3s ease,
     background-color 0.3s ease,
     color 0.3s ease !important;
 }
 
-.accard :deep(.p-accordionheader-toggle-icon .p-icon),
-.accard :deep(.p-accordionheader-toggle-icon .pi),
-.accard :deep(.p-accordionheader-toggle-icon svg) {
-  color: white !important;
-  fill: white !important;
-  stroke: white !important;
+.draft__accordion :deep(.p-accordionheader-toggle-icon .p-icon),
+.draft__accordion :deep(.p-accordionheader-toggle-icon .pi),
+.draft__accordion :deep(.p-accordionheader-toggle-icon svg) {
+  color: var(--color-text-inverse) !important;
+  fill: var(--color-text-inverse) !important;
+  stroke: var(--color-text-inverse) !important;
 }
-.name {
+
+.draft__message-author {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 23px;
   margin: 0;
-  color: #979797;
+  color: var(--color-text-secondary);
 }
 
-.draft {
-  max-width: 440px;
-  width: 100%;
-  height: 387px;
-}
-
-.new__container {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 55px;
-}
-
-.draft {
-  flex: 0 0 440px;
-  max-width: 440px;
-}
-
-.wrapp__spec {
-  flex: 1;
-  min-width: 0;
-}
-
-@media (max-width: 1480px) {
-  .new__container {
-    flex-direction: column;
-  }
-
-  .customer-info-container {
-    max-width: none;
-  }
-
-  .draft {
-    flex: none;
-    max-width: 100%;
-  }
-
-  .wrapp__spec {
-    flex: none;
-  }
-}
-
-@media (max-width: 767px) {
-  .title {
-    font-size: 28px;
-  }
-
-  .top-section {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .button__container {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .new__container {
-    gap: 15px;
-  }
-
-  .wrapp {
-    padding: 20px;
-  }
-
-  .bgColor {
-    padding: 20px;
-    font-size: 18px;
-  }
-}
-
-.mess {
-  background-color: rgba(245, 244, 248, 1);
-  border-radius: 10px;
+.draft__message {
+  background-color: var(--color-background-secondary);
+  border-radius: var(--border-radius-large);
   margin: -11px;
   display: flex;
   flex-direction: column;
@@ -406,45 +368,45 @@ watch(
   padding: 30px 11px 23px;
 }
 
-.descNew {
+.draft__description-title {
   font-family: 'Sora';
   font-style: normal;
   font-weight: 600;
   font-size: 30px;
   line-height: 38px;
-  color: #ffffff;
-  background-color: rgba(167, 167, 251, 1);
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary-light);
   padding: 17px 30px;
-  border-radius: 10px;
+  border-radius: var(--border-radius-large);
   margin: -30px;
   margin-bottom: 16px;
 }
 
-.accard :deep(.p-accordion) {
+.draft__accordion :deep(.p-accordion) {
   border: none;
 }
 
-.header__accard {
+.draft__accordion-header {
   font-family: 'Karla';
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
   line-height: 23px;
 
-  color: #353535;
+  color: var(--color-text-primary);
 }
 
-.accard :deep(.p-accordion-header) {
+.draft__accordion :deep(.p-accordion-header) {
   border: none;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-border);
   background: transparent;
 }
 
-.accard :deep(.p-accordion-header:not(.p-disabled).p-highlight:hover) {
+.draft__accordion :deep(.p-accordion-header:not(.p-disabled).p-highlight:hover) {
   background: #f3f4f6;
 }
 
-.accard :deep(.p-accordion-header-link) {
+.draft__accordion :deep(.p-accordion-header-link) {
   padding: 1rem;
   text-decoration: none;
   color: #374151;
@@ -453,30 +415,119 @@ watch(
   font-size: 16px;
 }
 
-.accard :deep(.p-accordion-content) {
+.draft__accordion :deep(.p-accordion-content) {
   border: none;
   background: transparent;
   padding: 1rem;
 }
 
-.wrapp__spec {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+@media (max-width: 1024px) {
+  .draft__content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .draft__left-column {
+    flex: none;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .draft__right-column {
+    width: 100%;
+  }
+
+  .draft__title {
+    font-size: 30px;
+    line-height: 38px;
+  }
 }
 
 @media (max-width: 768px) {
-  .top-section {
-    flex-direction: column;
-    align-items: stretch;
+  .draft__title {
+    font-size: 18px;
+    line-height: 32px;
+    margin-bottom: 15px;
   }
 
-  .button__container {
+  .draft__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .draft__title-wrapper {
+    width: 100%;
+  }
+
+  .draft__actions {
+    width: 100%;
     justify-content: flex-start;
   }
 
-  .new__container {
+  .draft__content {
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .draft__left-column {
+    max-width: 100%;
+  }
+
+  .draft__description {
+    padding: 20px;
+  }
+
+  .draft__accordion-content {
+    padding: 20px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .draft__message-text,
+  .draft__message-author,
+  .draft__next-steps-title {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .draft__description-title {
+    font-size: 24px;
+    line-height: 30px;
+    padding: 15px 20px;
+    margin: -20px;
+    margin-bottom: 16px;
+  }
+
+  .draft__messengers {
+    gap: 8px;
+  }
+
+  .draft__next-steps {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .draft__arrow {
+    left: 20px;
+  }
+
+  .draft__message {
+    padding: 20px 10px 15px;
+    gap: 12px;
+  }
+
+  .draft__accordion :deep(.p-accordion-header-link) {
+    padding: 0.75rem !important;
+    font-size: 14px !important;
+  }
+
+  .draft__accordion :deep(.p-accordionheader-toggle-icon) {
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 10px !important;
   }
 }
 </style>

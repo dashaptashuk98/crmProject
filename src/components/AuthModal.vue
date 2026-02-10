@@ -11,24 +11,24 @@
         <h2 class="auth-modal__title">Login</h2>
 
         <form class="auth-modal__form" @submit.prevent="handleLoginSubmit">
-          <div class="form__group">
-            <label for="login-username" class="form__label">Username</label>
+          <div class="auth-modal__field">
+            <label for="login-username" class="auth-modal__label">Username</label>
             <InputText
               id="login-username"
               v-model="loginData.username"
               placeholder="Enter your username"
-              class="form__input"
+              class="auth-modal__input"
               required
             />
           </div>
-          <div class="form__group">
-            <label for="login-password" class="form__label">Password</label>
+          <div class="auth-modal__field">
+            <label for="login-password" class="auth-modal__label">Password</label>
             <InputText
               id="login-password"
               v-model="loginData.password"
               type="password"
               placeholder="Enter your password"
-              class="form__input"
+              class="auth-modal__input"
               required
             />
           </div>
@@ -36,8 +36,12 @@
           <Button
             type="submit"
             :loading="loading"
-            class="btn--block"
-            :style="{ background: '#8F6AFE', borderColor: '#8F6AFE', fontFamily: 'Karla' }"
+            class="auth-modal__submit"
+            :style="{
+              background: 'var(--color-primary)',
+              borderColor: 'var(--color-primary)',
+              fontFamily: 'Karla',
+            }"
           >
             Login to Account
           </Button>
@@ -86,8 +90,8 @@ const handleLoginSubmit = async () => {
 
 <style scoped>
 .auth-modal {
-  background: #ffffff;
-  border-radius: 12px;
+  background: var(--color-background);
+  border-radius: var(--border-radius-extra);
   padding: 32px;
 }
 
@@ -104,24 +108,24 @@ const handleLoginSubmit = async () => {
   margin-bottom: 24px;
 }
 
-.form__group {
+.auth-modal__field {
   margin-bottom: 20px;
 }
 
-.form__label {
+.auth-modal__label {
   display: block;
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: #666666;
+  color: var(--color-text-light);
   margin-bottom: 6px;
 }
 
-.form__input {
+.auth-modal__input {
   width: 100%;
 }
 
-.btn--block {
+.auth-modal__submit {
   width: 100%;
   display: block;
 }

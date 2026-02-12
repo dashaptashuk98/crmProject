@@ -44,4 +44,4 @@ npm run lint
 
 ## Deployment
 
-[App link](https://field-shop.vercel.app/)
+[App link](https://crm-project-gilt.vercel.app/)

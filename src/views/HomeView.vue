@@ -1,6 +1,6 @@
 <template>
   <div class="customer">
-    <LoaderComponent :isLoading="isLoading" fullscreen text="Загрузка данных..." />
+    <LoaderComponent :isLoading="isLoading" fullscreen text="Loading..." />
     <div class="customer__header">
       <div class="customer__title-wrapper">
         <h1 class="customer__title">Customer information</h1>

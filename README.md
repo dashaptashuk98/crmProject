@@ -1,48 +1,47 @@
-# crmProject
+# CRM App
 
-This template should help get you started developing with Vue 3 in Vite.
+## How to run the app
 
-## Recommended IDE Setup
+### Install dependencies
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
 npm install
-```
 
-### Compile and Hot-Reload for Development
+### Run in development mode
 
-```sh
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
+### Build project
 
-```sh
 npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
+Built files will appear in the `dist/` folder
 
-```sh
+### Code linting
+
 npm run lint
-```
+
+## Dependencies
+
+#### Main dependencies:
+
+- **`vue@^3.5.27`** - Core framework
+- **`vue-router@^5.0.1`** - Routing
+- **`pinia@^3.0.4`** - State management
+- **`primevue@^4.5.4`** - UI component library
+- **`primeicons@^7.0.0`** - Icon library for PrimeVue
+- **`@primeuix/themes@^2.0.3`** - Themes for PrimeVue components
+- **`axios@^1.13.4`** - HTTP client
+- **`chart.js@^4.5.1`** - Charting library
+
+## Functionality
+
+- **`Authorization`**
+- **`Navigation across three pages`**
+- **`Copying data`**
+- **`Pagination`**
+- **`Charts viewing capability`**
+- **`Simple chat`**
+
+## Deployment
+
+[App link](https://field-shop.vercel.app/)

@@ -48,10 +48,7 @@ const isActive = (path: string) => {
 
 const navigateTo = (path: string) => {
   if (route.path !== path) {
-    console.log('Переход на:', path)
     router.push(path)
-  } else {
-    console.log('Уже на странице:', path)
   }
 }
 </script>

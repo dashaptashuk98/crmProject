@@ -137,11 +137,6 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('refreshToken')
   }
 
-  const fullName = () => {
-    if (!user.value) return ''
-    return `${user.value.firstName} ${user.value.lastName}`
-  }
-
   return {
     user,
     token,
@@ -152,6 +147,5 @@ export const useAuthStore = defineStore('auth', () => {
     refreshAccessToken,
     fetchCurrentUser,
     logout,
-    fullName,
   }
 })

@@ -1,5 +1,6 @@
 <template>
   <div class="customer">
+    <LoaderComponent :isLoading="isLoading" fullscreen text="Загрузка данных..." />
     <div class="customer__header">
       <div class="customer__title-wrapper">
         <h1 class="customer__title">Customer information</h1>
@@ -55,7 +56,7 @@
     </div>
 
     <div class="customer__description">
-      <img src="../src/assets/images/desc.svg" alt="" class="customer__description-icon" />
+      <img src="../assets/images/desc.svg" alt="" class="customer__description-icon" />
       <p class="customer__description-text">Description</p>
     </div>
 
@@ -84,7 +85,7 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import CustomerInfoCard from '@/components/CustomerInfoCard.vue'
 import { ref, onMounted, watch } from 'vue'
-import { getRecipes, type TableRecipe } from '@/services/getTableInfo'
+import LoaderComponent from '@/components/LoaderComponent.vue'
 import { useCustomerStore } from '@/stores/customer'
 import { useMasterStore } from '@/stores/master'
 import { useRecipesStore } from '@/stores/table'
@@ -93,8 +94,10 @@ const recipesStore = useRecipesStore()
 const customerStore = useCustomerStore()
 const masterStore = useMasterStore()
 const authStore = useAuthStore()
+const isLoading = ref(false)
 
 async function loadData() {
+  isLoading.value = true
   try {
     const userId = authStore.user?.id || 1
     await customerStore.fetchCustomerData(userId)
@@ -102,6 +105,8 @@ async function loadData() {
     await recipesStore.fetchRecipes()
   } catch (err) {
     console.error('Error loading customer data:', err)
+  } finally {
+    isLoading.value = false
   }
 }
 

@@ -1,5 +1,6 @@
 <template>
   <div class="draft">
+    <LoaderComponent :isLoading="isLoading" fullscreen text="Загрузка графиков..." />
     <div class="draft__header">
       <div class="draft__title-wrapper">
         <h1 class="draft__title">Certificate: 2023/Cert - 001</h1>
@@ -120,14 +121,15 @@ import Accordion from 'primevue/accordion'
 import AccordionPanel from 'primevue/accordionpanel'
 import AccordionHeader from 'primevue/accordionheader'
 import AccordionContent from 'primevue/accordioncontent'
-import { onMounted, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useCustomerStore } from '@/stores/customer'
 import { useAuthStore } from '@/stores/auth'
 
 const customerStore = useCustomerStore()
 const authStore = useAuthStore()
-
+const isLoading = ref(false)
 async function loadData() {
+  isLoading.value = true
   try {
     const userId = authStore.user?.id || 1
     await customerStore.fetchCustomerData(userId)

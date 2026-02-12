@@ -1,6 +1,6 @@
 <template>
   <div class="draft">
-    <LoaderComponent :isLoading="isLoading" fullscreen text="Загрузка графиков..." />
+    <LoaderComponent :isLoading="isLoading" fullscreen text="Loading..." />
     <div class="draft__header">
       <div class="draft__title-wrapper">
         <h1 class="draft__title">Certificate: 2023/Cert - 001</h1>

@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-
+const WS_URL = import.meta.env.VITE_WS_URL
 const messages = ref<string[]>([])
 const inputText = ref('')
 let ws: WebSocket | null = null
@@ -34,7 +34,7 @@ const send = () => {
 }
 
 onMounted(() => {
-  ws = new WebSocket('wss://ws.ifelse.io')
+  ws = new WebSocket(WS_URL)
 
   ws.onopen = () => {
     messages.value.push('Connected to server')

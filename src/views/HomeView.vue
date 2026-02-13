@@ -15,6 +15,7 @@
             fontFamily: 'Karla',
           }"
         />
+
         <Button
           icon="pi pi-angle-down"
           iconPos="right"
@@ -61,12 +62,19 @@
     </div>
 
     <DataTable
+      :key="recipesStore.recipes.length"
       :value="recipesStore.recipes"
+      :loading="recipesStore.loading"
       paginator
-      :rows="5"
-      :rowsPerPageOptions="[5, 10, 20]"
+      lazy
+      :rows="currentRows"
+      :rowsPerPageOptions="[5, 10]"
+      :totalRecords="recipesStore.totalRecords"
+      @page="onPage"
+      @update:rows="onRowsChange"
       showGridlines
       tableStyle="min-width: 50rem"
+      paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
     >
       <Column field="createDate" header="Create date"></Column>
       <Column field="product" header="Product"></Column>
@@ -89,12 +97,32 @@ import LoaderComponent from '@/components/LoaderComponent.vue'
 import { useCustomerStore } from '@/stores/customer'
 import { useMasterStore } from '@/stores/master'
 import { useRecipesStore } from '@/stores/table'
+import type { DataTablePageEvent } from 'primevue/datatable'
+
 import { useAuthStore } from '@/stores/auth'
+
 const recipesStore = useRecipesStore()
 const customerStore = useCustomerStore()
 const masterStore = useMasterStore()
 const authStore = useAuthStore()
 const isLoading = ref(false)
+
+const currentPage = ref(1)
+const currentRows = ref(5)
+
+function onPage(event: DataTablePageEvent) {
+  const page = event.page + 1
+  const rows = event.rows || currentRows.value
+  currentPage.value = page
+  currentRows.value = rows
+  recipesStore.fetchRecipes(page, rows)
+}
+
+function onRowsChange(rows: number) {
+  currentPage.value = 1
+  currentRows.value = rows
+  recipesStore.fetchRecipes(1, rows)
+}
 
 async function loadData() {
   isLoading.value = true
@@ -102,7 +130,7 @@ async function loadData() {
     const userId = authStore.user?.id || 1
     await customerStore.fetchCustomerData(userId)
     await masterStore.fetchMasterData(userId)
-    await recipesStore.fetchRecipes()
+    await recipesStore.fetchRecipes(currentPage.value, currentRows.value)
   } catch (err) {
     console.error('Error loading customer data:', err)
   } finally {
@@ -121,7 +149,6 @@ watch(
   },
 )
 </script>
-
 <style scoped>
 .customer {
   width: 100%;

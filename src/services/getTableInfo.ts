@@ -20,16 +20,9 @@ export interface TableRecipe {
   status: string
 }
 
-export const getRecipes = async (limit: number = 30, skip: number = 0): Promise<TableRecipe[]> => {
+export const getRecipes = async (limit: number = 5, skip: number = 0) => {
   try {
     const { data } = await api.get(`recipes?limit=${limit}&skip=${skip}`)
-
-    console.log('Recipes API response:', data)
-
-    if (!data || !data.recipes || !Array.isArray(data.recipes)) {
-      console.warn('No recipes data received')
-      return []
-    }
 
     const tableRecipes: TableRecipe[] = data.recipes.map((recipe: Recipe) => ({
       createDate: String(recipe.id),
@@ -41,7 +34,10 @@ export const getRecipes = async (limit: number = 30, skip: number = 0): Promise<
       status: recipe.difficulty,
     }))
 
-    return tableRecipes
+    return {
+      recipes: tableRecipes,
+      total: 30,
+    }
   } catch (error) {
     console.error('Error fetching recipes:', error)
     throw error

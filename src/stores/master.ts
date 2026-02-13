@@ -1,4 +1,3 @@
-// stores/master.ts
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getMasterInfo } from '@/services/getMasterInfo'

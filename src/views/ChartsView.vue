@@ -61,6 +61,7 @@ import Button from 'primevue/button'
 import Chart from 'primevue/chart'
 import CardComponent from '@/components/CardComponent.vue'
 import { ref } from 'vue'
+import type { TooltipItem } from 'chart.js'
 
 const cardsData = ref([
   { title: 'Antibiotics', cardNum: '14.7k', cardInc: '2%' },
@@ -152,7 +153,7 @@ const barChartOptions = ref({
     },
     tooltip: {
       callbacks: {
-        label: function (context: any) {
+        label: function (context: TooltipItem<'bar'>) {
           return `Sales: ${context.raw}`
         },
       },
@@ -234,10 +235,13 @@ const doughnutChartOptions = ref({
     },
     tooltip: {
       callbacks: {
-        label: function (context: any) {
+        label: function (context: TooltipItem<'doughnut'>) {
           const label = context.label || ''
-          const value = context.raw || 0
-          const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0)
+          const value = (context.raw as number) || 0
+          const total = (context.dataset.data as number[]).reduce(
+            (a: number, b: number) => a + b,
+            0,
+          )
           const percentage = Math.round((value / total) * 100)
           return `${label}: ${value} (${percentage}%)`
         },

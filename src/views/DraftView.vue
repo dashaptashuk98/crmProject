@@ -124,7 +124,7 @@ import AccordionContent from 'primevue/accordioncontent'
 import { ref, onMounted, watch } from 'vue'
 import { useCustomerStore } from '@/stores/customer'
 import { useAuthStore } from '@/stores/auth'
-
+import LoaderComponent from '@/components/LoaderComponent.vue'
 const customerStore = useCustomerStore()
 const authStore = useAuthStore()
 const isLoading = ref(false)
@@ -135,6 +135,8 @@ async function loadData() {
     await customerStore.fetchCustomerData(userId)
   } catch (err) {
     console.error('Error loading customer data:', err)
+  } finally {
+    isLoading.value = false
   }
 }
 

@@ -21,6 +21,18 @@ const router = createRouter({
       component: () => import('../views/ChartsView.vue'),
       meta: { requiresAuth: true },
     },
+    {
+      path: '/finance',
+      name: 'finance',
+      component: () => import('../views/InProgressView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/add',
+      name: 'add',
+      component: () => import('../views/InProgressView.vue'),
+      meta: { requiresAuth: true },
+    },
   ],
 })
 

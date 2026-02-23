@@ -1,15 +1,14 @@
 <template>
   <div class="inProgress">
-    <InProgressAnimation />
     <Button
-          label="Main page"
-          @click="$router.push('/')""
-          :style="{
-            background: 'var(--color-primary)',
-            borderColor: 'var(--color-primary)',
-            fontFamily: 'Karla',
-          }"
-        />
+      label="Main page"
+      @click="$router.push('/')"
+      :style="{
+        background: 'var(--color-primary)',
+        borderColor: 'var(--color-primary)',
+        fontFamily: 'Karla',
+      }"
+    />
   </div>
 </template>
 
